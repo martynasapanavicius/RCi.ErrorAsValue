@@ -17,11 +17,11 @@ namespace RCi.ErrorAsValue
     )
     {
         private readonly Error _inner = inner;
-        public readonly string _kind = kind ?? ErrorKind.Undefined;
-        public readonly string _message = message; // can be null if wrapping only with arguments
-        public readonly ImmutableArray<ErrorArg> _args = args.IsDefaultOrEmpty ? [] : args;
-        public readonly ErrorThreadContext _threadContext = threadContext ?? ErrorThreadContext.GetCurrent();
-        public readonly string _stackTrace = stackTrace ?? Environment.StackTrace;
+        private readonly string _kind = kind ?? ErrorKind.Undefined;
+        private readonly string _message = message; // can be null if wrapping only with arguments
+        private readonly ImmutableArray<ErrorArg> _args = args.IsDefaultOrEmpty ? [] : args;
+        private readonly ErrorThreadContext _threadContext = threadContext ?? ErrorThreadContext.GetCurrent();
+        private readonly string _stackTrace = stackTrace ?? Environment.StackTrace;
 
         public virtual string Kind => _kind;
 
