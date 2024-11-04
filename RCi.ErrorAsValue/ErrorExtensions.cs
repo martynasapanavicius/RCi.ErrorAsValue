@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Immutable;
-using ErrorArgTuple = (string Name, object Value);
+using ErrorArgTuple = (string Name, object? Value);
 
 namespace RCi.ErrorAsValue
 {
     public static class ErrorExtensions
     {
-        internal static ImmutableArray<T> CastToImmutableArray<T>(this T[] src) =>
+        internal static ImmutableArray<T> UnsafeAsImmutableArray<T>(this T[] src) =>
             System.Runtime.CompilerServices.Unsafe.As<T[], ImmutableArray<T>>(ref src);
 
         internal static ErrorArg ToErrorArg(this ErrorArgTuple arg) =>
@@ -27,13 +27,13 @@ namespace RCi.ErrorAsValue
         }
 
         public static Error Wrap(this Error err, string kind, string message, params ErrorArgTuple[] args) =>
-            Error.New(err, kind, message, args);
+            new(err, kind, message, args.ToErrorArg().UnsafeAsImmutableArray());
 
         public static Error Wrap(this Error err, string message, params ErrorArgTuple[] args) =>
-            err.Wrap(err.Kind, message, args);
+            new(err, default, message, args.ToErrorArg().UnsafeAsImmutableArray());
 
         public static Error Wrap(this Error err, params ErrorArgTuple[] args) =>
-            err.Wrap(default, args);
+            new(err, default, default, args.ToErrorArg().UnsafeAsImmutableArray());
 
         public static Error ToError(this Exception exception, params ErrorArgTuple[] args) =>
             Error.NewException(exception, args);

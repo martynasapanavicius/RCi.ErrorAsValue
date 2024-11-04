@@ -1,4 +1,4 @@
-﻿using ErrorArgTuple = (string Name, object Value);
+﻿using ErrorArgTuple = (string Name, object? Value);
 
 namespace RCi.ErrorAsValue
 {
@@ -13,14 +13,14 @@ namespace RCi.ErrorAsValue
     public static class VeWrapIfErrorExtensions
     {
         public static Ve<T> WrapIfError<T>(this Ve<T> ve, GetMessageDelegate getMessage) =>
-            ve.HasError ? ve with { Error = ve.Error.Wrap(getMessage()) } : ve;
+            ve.Error is null ? ve : ve with { Error = ve.Error.Wrap(getMessage()) };
 
         public static Ve<T> WrapIfError<T>(this Ve<T> ve, GetArgsDelegate getArgs) =>
-            ve.HasError ? ve with { Error = ve.Error.Wrap(getArgs()) } : ve;
+            ve.Error is null ? ve : ve with { Error = ve.Error.Wrap(getArgs()) };
 
         public static Ve<T> WrapIfError<T>(this Ve<T> ve, GetMessageArgsDelegate getMessageArgs)
         {
-            if (!ve.HasError)
+            if (ve.Error is null)
             {
                 return ve;
             }
@@ -33,7 +33,7 @@ namespace RCi.ErrorAsValue
 
         public static Ve<T> WrapIfError<T>(this Ve<T> ve, GetKindMessageArgsDelegate getKindMessageArgs)
         {
-            if (!ve.HasError)
+            if (ve.Error is null)
             {
                 return ve;
             }

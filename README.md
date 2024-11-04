@@ -1,5 +1,5 @@
 # RCi.ErrorAsValue
-C# Error as value package
+.NET Error as value package
 
 ## Usage:
 Consider this example:

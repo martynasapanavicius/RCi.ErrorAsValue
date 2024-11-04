@@ -3,18 +3,26 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
+	<WarningsAsErrors>Nullable</WarningsAsErrors>
+
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Error as value package</Title>
     <Authors>Martynas Apanavicius</Authors>
-    <Description>C# Error as value package.</Description>
+    <Description>.NET Error as value package.</Description>
     <PackageProjectUrl>https://github.com/martynasapanavicius/RCi.ErrorAsValue</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/martynasapanavicius/RCi.ErrorAsValue</RepositoryUrl>
     <PackageTags>error, errors, value, values, err, exception, exceptions</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>RCi.ErrorAsValue.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\LICENSE">
