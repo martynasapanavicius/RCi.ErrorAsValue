@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using ErrorArgTuple = (string Name, object? Value);
 
@@ -113,7 +114,7 @@ namespace RCi.ErrorAsValue
 
         public override string ToString() => $"{Kind}: {Message}";
 
-        public static implicit operator bool(Error? err) => err is not null;
+        public static implicit operator bool([NotNullWhen(true)] Error? err) => err is not null;
 
         // factory (generic)
 

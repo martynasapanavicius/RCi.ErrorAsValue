@@ -180,5 +180,28 @@
             bool actual = err;
             Assert.That(actual, Is.True);
         }
+
+        [Test]
+        public static void ImplicitOperatorBool_NotNullWhenAttribute()
+        {
+            var err = GetError();
+            if (err)
+            {
+                // this doesn't compile without [NotNullWhen(true)] attribute
+                // compiler err: "Dereference of a possibly null reference."
+                // since we do have this attribute, it should compile without errors
+                var msg = err/*!*/.Message; // <--- no need for bang operator
+
+                Assert.That(msg, Is.Not.Null);
+            }
+
+            return;
+
+            // this always returns non-null error (although return type is nullable reference type)
+            static Error? GetError() =>
+                DateTime.UtcNow.Ticks == 0
+                    ? default
+                    : Error.NewInternal("some error");
+        }
     }
 }
