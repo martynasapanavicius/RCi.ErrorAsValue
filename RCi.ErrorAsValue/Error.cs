@@ -124,24 +124,39 @@ namespace RCi.ErrorAsValue
 
         public static Error NewException(Exception exception, params ErrorArgTuple[] args)
         {
-            return new Error
-            (
-                ErrorKind.Exception,
-                exception.GetType().Name + ": " + exception.Message,
-                ErrorThreadContext.GetCurrent(),
-                exception.StackTrace ?? Environment.StackTrace,
-                [.. GetArgs()]
-            );
+            return CreateRecursively(exception, args);
 
-            IEnumerable<ErrorArg> GetArgs()
+            static Error CreateRecursively(Exception e, ErrorArgTuple[] args)
             {
-                foreach (DictionaryEntry entry in exception.Data)
+                if (e.InnerException is null)
+                {
+                    // this the most inner exception
+                    return new Error
+                    (
+                        ErrorKind.Exception,
+                        $"({e.GetType().Name}) {e.Message}",
+                        ErrorThreadContext.GetCurrent(),
+                        e.StackTrace ?? Environment.StackTrace,
+                        [.. args, .. GetArgs(e)]
+                    );
+                }
+
+                // get inner error
+                var errInner = CreateRecursively(e.InnerException, []);
+                return new Error
+                (
+                    errInner,
+                    ErrorKind.Exception,
+                    $"({e.GetType().Name}) {e.Message}",
+                    [.. args, .. GetArgs(e)]
+                );
+            }
+
+            static IEnumerable<ErrorArg> GetArgs(Exception e)
+            {
+                foreach (DictionaryEntry entry in e.Data)
                 {
                     yield return new ErrorArg(entry.Key.ToString() ?? string.Empty, entry.Value);
-                }
-                foreach (var tuple in args)
-                {
-                    yield return tuple;
                 }
             }
         }
