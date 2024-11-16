@@ -57,7 +57,7 @@ We can get more details on the error:
 var (employee, err) = GetEmployeeById(420);
 if (err)
 {
-    Console.WriteLine(JsonConvert.SerializeObject(err.ToErrorDump(), Formatting.Indented));
+    Console.WriteLine(JsonSerializer.Serialize(err.ToErrorDump(), new JsonSerializerOptions { WriteIndented = true }));
 }
 ```
 Output:
