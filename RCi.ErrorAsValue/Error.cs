@@ -9,17 +9,17 @@ namespace RCi.ErrorAsValue
 {
     public class Error
     {
-        private readonly Error? _inner;
-        private readonly string? _kind;
-        private readonly string? _message;
-        private readonly ErrorThreadContext? _threadContext;
-        private readonly string? _stackTrace;
-        private readonly ImmutableArray<ErrorArg> _args;
+        protected readonly Error? _inner;
+        protected readonly string? _kind;
+        protected readonly string? _message;
+        protected readonly ErrorThreadContext? _threadContext;
+        protected readonly string? _stackTrace;
+        protected readonly ImmutableArray<ErrorArg> _args;
 
         /// <summary>
         /// Constructor for new error.
         /// </summary>
-        internal Error
+        protected internal Error
         (
             string kind,
             string message,
@@ -39,7 +39,7 @@ namespace RCi.ErrorAsValue
         /// <summary>
         /// Constructor for wrapping an existing error.
         /// </summary>
-        internal Error
+        protected internal Error
         (
             Error inner,
             string? kindOverride,
@@ -53,7 +53,7 @@ namespace RCi.ErrorAsValue
             _args = args;
         }
 
-        protected IEnumerable<Error> EnumerateErrorChain()
+        protected virtual IEnumerable<Error> EnumerateErrorChain()
         {
             var node = this;
             while (node is not null)
