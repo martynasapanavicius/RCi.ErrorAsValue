@@ -51,7 +51,8 @@ namespace RCi.ErrorAsValue.Tests
                 Console.WriteLine(err.ToString());
             }
 
-            Assert.That(err?.ToString(), Is.EqualTo("NotFound: cannot find employee by id"));
+            Assert.That(err, Is.Not.Null);
+            Assert.That(err.ToString(), Is.EqualTo("NotFound: cannot find employee by id"));
             Assert.That(employee, Is.Null);
         }
 
@@ -66,7 +67,10 @@ namespace RCi.ErrorAsValue.Tests
                 Console.WriteLine(json);
             }
 
-            Assert.That(JsonSerializer.Serialize(err!.ToErrorDump(), new JsonSerializerOptions { WriteIndented = true }), Is.Not.Null);
+            Assert.That(err, Is.Not.Null);
+            var errDump2 = err.ToErrorDump();
+            var json2 = JsonSerializer.Serialize(errDump2, new JsonSerializerOptions { WriteIndented = true });
+            Assert.That(json2, Is.Not.Null);
             Assert.That(employee, Is.Null);
         }
     }

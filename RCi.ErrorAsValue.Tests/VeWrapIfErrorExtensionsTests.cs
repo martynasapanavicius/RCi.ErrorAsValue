@@ -16,7 +16,8 @@
         {
             var ve = Error.NewInternal("test").ToVe<int>();
             var actual = ve.WrapIfError(() => "wrap message");
-            Assert.That(actual.Error!.Message, Is.EqualTo("wrap message: test"));
+            Assert.That(actual.Error, Is.Not.Null);
+            Assert.That(actual.Error.Message, Is.EqualTo("wrap message: test"));
         }
 
         [Test]
@@ -32,7 +33,8 @@
         {
             var ve = Error.NewInternal("test").ToVe<int>();
             var actual = ve.WrapIfError(() => [("arg0", "value0")]);
-            var actualArgs = actual.Error!.Args.ToArray();
+            Assert.That(actual.Error, Is.Not.Null);
+            var actualArgs = actual.Error.Args.ToArray();
             var expectedArgs = new ErrorArg[] { ("arg0", "value0") };
             Assert.That(actualArgs.SequenceEqual(expectedArgs));
         }
@@ -50,8 +52,9 @@
         {
             var ve = Error.NewInternal("test").ToVe<int>();
             var actual = ve.WrapIfError(() => ("wrap message", [("arg0", "value0")]));
-            Assert.That(actual.Error!.Message, Is.EqualTo("wrap message: test"));
-            var actualArgs = actual.Error!.Args.ToArray();
+            Assert.That(actual.Error, Is.Not.Null);
+            Assert.That(actual.Error.Message, Is.EqualTo("wrap message: test"));
+            var actualArgs = actual.Error.Args.ToArray();
             var expectedArgs = new ErrorArg[] { ("arg0", "value0") };
             Assert.That(actualArgs.SequenceEqual(expectedArgs));
         }
@@ -69,9 +72,10 @@
         {
             var ve = Error.NewInternal("test").ToVe<int>();
             var actual = ve.WrapIfError(() => ("kind", "wrap message", [("arg0", "value0")]));
-            Assert.That(actual.Error!.Kind, Is.EqualTo("kind"));
-            Assert.That(actual.Error!.Message, Is.EqualTo("wrap message: test"));
-            var actualArgs = actual.Error!.Args.ToArray();
+            Assert.That(actual.Error, Is.Not.Null);
+            Assert.That(actual.Error.Kind, Is.EqualTo("kind"));
+            Assert.That(actual.Error.Message, Is.EqualTo("wrap message: test"));
+            var actualArgs = actual.Error.Args.ToArray();
             var expectedArgs = new ErrorArg[] { ("arg0", "value0") };
             Assert.That(actualArgs.SequenceEqual(expectedArgs));
         }
