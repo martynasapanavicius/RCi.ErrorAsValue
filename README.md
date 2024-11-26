@@ -3,7 +3,7 @@
 
 ## Usage:
 Consider this example:
-```
+```csharp
 public sealed record Employee(string FirstName, string LastName, int Age);
 
 private static readonly Dictionary<int, Employee> _employees = new()
@@ -25,7 +25,7 @@ public static Ve<Employee> GetEmployeeById(int id)
 }
 ```
 Try to get existing employee:
-```
+```csharp
 var (employee, err) = GetEmployeeById(3);
 if (err)
 {
@@ -41,7 +41,7 @@ Output:
 Employee { FirstName = Emily, LastName = Johnson, Age = 28 }
 ```
 Try to get non-existing employee:
-```
+```csharp
 var (employee, err) = GetEmployeeById(420);
 if (err)
 {
@@ -53,7 +53,7 @@ Output:
 NotFound: cannot find employee by id
 ```
 We can get more details on the error:
-```
+```csharp
 var (employee, err) = GetEmployeeById(420);
 if (err)
 {
@@ -61,7 +61,7 @@ if (err)
 }
 ```
 Output:
-```
+```json
 {
   "Kind": "NotFound",
   "Message": "cannot find employee by id",
