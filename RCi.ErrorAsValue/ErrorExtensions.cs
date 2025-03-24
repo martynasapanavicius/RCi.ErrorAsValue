@@ -30,10 +30,10 @@ namespace RCi.ErrorAsValue
             new(err, kind, message, args.ToErrorArg().UnsafeAsImmutableArray());
 
         public static Error Wrap(this Error err, string message, params ErrorArgTuple[] args) =>
-            new(err, default, message, args.ToErrorArg().UnsafeAsImmutableArray());
+            new(err, null, message, args.ToErrorArg().UnsafeAsImmutableArray());
 
         public static Error Wrap(this Error err, params ErrorArgTuple[] args) =>
-            new(err, default, default, args.ToErrorArg().UnsafeAsImmutableArray());
+            new(err, null, null, args.ToErrorArg().UnsafeAsImmutableArray());
 
         public static Error ToError(this Exception exception, params ErrorArgTuple[] args) =>
             Error.NewException(exception, args);

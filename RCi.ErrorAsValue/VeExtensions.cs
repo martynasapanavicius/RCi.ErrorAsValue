@@ -4,7 +4,7 @@ namespace RCi.ErrorAsValue
 {
     public static class VeExtensions
     {
-        public static Ve<T> ToVe<T>(this T value) => new(value, default);
+        public static Ve<T> ToVe<T>(this T value) => new(value, null);
 
         public static Ve<T> ToVe<T>(this Error err) => new(default!, err);
 

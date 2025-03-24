@@ -29,7 +29,7 @@ namespace RCi.ErrorAsValue
             ImmutableArray<ErrorArg> args
         )
         {
-            _inner = default;
+            _inner = null;
             _kind = kind;
             _message = message;
             _threadContext = threadContext;
