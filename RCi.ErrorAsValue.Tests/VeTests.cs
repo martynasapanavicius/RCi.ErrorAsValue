@@ -30,9 +30,9 @@
         [Test]
         public static void ImplicitOperatorValueToVe()
         {
-            var value = 42;
+            const int value = 42;
             Ve<int> actual = value;
-            Assert.That(actual, Is.EqualTo(new Ve<int>(value, default)));
+            Assert.That(actual, Is.EqualTo(new Ve<int>(value, null)));
         }
 
         [Test]
@@ -40,7 +40,7 @@
         {
             var err = Error.NewInternal("test");
             Ve<int> actual = err;
-            Assert.That(actual, Is.EqualTo(new Ve<int>(default, err)));
+            Assert.That(actual, Is.EqualTo(new Ve<int>(0, err)));
         }
     }
 }

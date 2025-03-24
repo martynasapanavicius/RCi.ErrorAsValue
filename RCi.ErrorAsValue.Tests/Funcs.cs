@@ -7,7 +7,7 @@
         public static class ValueType
         {
             public const int SomeValue = 42;
-            public const int DefaultValue = default;
+            public const int DefaultValue = 0;
 
             public static class Explicit
             {

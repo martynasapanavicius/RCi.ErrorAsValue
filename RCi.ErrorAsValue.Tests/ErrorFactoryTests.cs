@@ -57,9 +57,9 @@
         [Test]
         public static void NewExceptionNested()
         {
-            var exceptionInner = default(Exception?);
-            var exceptionOuter = default(Exception?);
-            var actual = default(Error?);
+            Exception? exceptionInner = null;
+            Exception? exceptionOuter = null;
+            Error? actual = null;
             try
             {
                 var task = Task.Run(() =>

@@ -5,7 +5,7 @@ namespace RCi.ErrorAsValue.Tests
     [Parallelizable]
     public static class ReadmeTests
     {
-        private sealed record Employee(string FirstName, string LastName, int Age);
+        public sealed record Employee(string FirstName, string LastName, int Age);
 
         private static readonly Dictionary<int, Employee> _employees = new()
         {

@@ -168,7 +168,7 @@
         [Test]
         public static void ImplicitOperatorBool_False()
         {
-            var err = default(Error?);
+            Error? err = null;
             bool actual = err;
             Assert.That(actual, Is.False);
         }
@@ -200,7 +200,7 @@
             // this always returns non-null error (although return type is nullable reference type)
             static Error? GetError() =>
                 DateTime.UtcNow.Ticks == 0
-                    ? default
+                    ? null
                     : Error.NewInternal("some error");
         }
     }
