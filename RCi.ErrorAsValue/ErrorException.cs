@@ -16,7 +16,7 @@ namespace RCi.ErrorAsValue
 
         public override string ToString() => err.ToString();
 
-        private static IDictionary GetData(IEnumerable<ErrorArg> args)
+        private static Dictionary<object, object?> GetData(IEnumerable<ErrorArg> args)
         {
             var data = new Dictionary<object, object?>();
             foreach (var (name, value) in args)
