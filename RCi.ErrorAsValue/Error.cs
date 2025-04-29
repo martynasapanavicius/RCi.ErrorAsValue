@@ -120,7 +120,7 @@ namespace RCi.ErrorAsValue
                 message,
                 ErrorThreadContext.GetCurrent(),
                 Environment.StackTrace,
-                args.ToErrorArg().UnsafeAsImmutableArray()
+                args.ToErrorArg().MarshalAsImmutableArray()
             );
 
             // notify observers that a new error was just created

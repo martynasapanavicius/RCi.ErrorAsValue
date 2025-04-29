@@ -7,11 +7,11 @@ namespace RCi.ErrorAsValue.Tests
     public static class ErrorExtensionsTests
     {
         [Test]
-        public static void UnsafeAsImmutableArray()
+        public static void MarshalAsImmutableArray()
         {
             var array = new[] { 1, 2, 3 };
 
-            var immutableArray = array.UnsafeAsImmutableArray();
+            var immutableArray = array.MarshalAsImmutableArray();
             Assert.That(immutableArray.SequenceEqual([1, 2, 3]));
 
             // modify original array, which changes immutable array (because it points to the original array)
