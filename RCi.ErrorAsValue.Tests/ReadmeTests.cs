@@ -5,6 +5,14 @@ namespace RCi.ErrorAsValue.Tests
     [Parallelizable]
     public static class ReadmeTests
     {
+        private static class Console
+        {
+            public static void WriteLine(object _)
+            {
+                // hide regular console, to prevent printing during tests
+            }
+        }
+
         public sealed record Employee(string FirstName, string LastName, int Age);
 
         private static readonly Dictionary<int, Employee> _employees = new()
