@@ -8,14 +8,14 @@ public sealed record Employee(string FirstName, string LastName, int Age);
 
 private static readonly Dictionary<int, Employee> _employees = new()
 {
-    {0, new("Michael", "Smith", 35)},
-    {1, new("Kenji", "Tanaka", 25)},
-    {2, new("Andrew", "Martinez", 50)},
-    {3, new("Emily", "Johnson", 28)},
-    {4, new("Jamal", "Washington", 30)},
+    { 0, new("Michael", "Smith", 35) },
+    { 1, new("Kenji", "Tanaka", 25) },
+    { 2, new("Andrew", "Martinez", 50) },
+    { 3, new("Emily", "Johnson", 28) },
+    { 4, new("Jamal", "Washington", 30) },
 };
 
-public static Ve<Employee> GetEmployeeById(int id)
+private static Ve<Employee> GetEmployeeById(int id)
 {
     if (_employees.TryGetValue(id, out var employee))
     {
@@ -57,7 +57,12 @@ We can get more details on the error:
 var (employee, err) = GetEmployeeById(420);
 if (err)
 {
-    Console.WriteLine(JsonSerializer.Serialize(err.ToErrorDump(), new JsonSerializerOptions { WriteIndented = true }));
+    var errDump = err.ToErrorDump();
+    var json = JsonSerializer.Serialize(
+        errDump,
+        new JsonSerializerOptions { WriteIndented = true }
+    );
+    Console.WriteLine(json);
 }
 ```
 Output:
