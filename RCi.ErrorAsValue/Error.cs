@@ -122,7 +122,10 @@ namespace RCi.ErrorAsValue
                 Environment.StackTrace,
                 args.ToErrorArg().UnsafeAsImmutableArray()
             );
+
+            // notify observers that a new error was just created
             ErrorGlobalHook.InvokeOnError(err);
+
             return err;
         }
 
@@ -131,7 +134,10 @@ namespace RCi.ErrorAsValue
         public static Error NewException(Exception exception, params ErrorArgTuple[] args)
         {
             var err = CreateRecursively(exception, args);
+
+            // notify observes (only after whole nested exceptions are converted to nested errors
             ErrorGlobalHook.InvokeOnError(err);
+
             return err;
 
             static Error CreateRecursively(Exception e, ErrorArgTuple[] args)
