@@ -113,20 +113,26 @@ namespace RCi.ErrorAsValue
 
         // factory (generic)
 
-        public static Error New(string kind, string message, params ErrorArgTuple[] args) =>
-            new(
+        public static Error New(string kind, string message, params ErrorArgTuple[] args)
+        {
+            var err = new Error(
                 kind,
                 message,
                 ErrorThreadContext.GetCurrent(),
                 Environment.StackTrace,
                 args.ToErrorArg().UnsafeAsImmutableArray()
             );
+            ErrorGlobalHook.InvokeOnError(err);
+            return err;
+        }
 
         // factory (explicit)
 
         public static Error NewException(Exception exception, params ErrorArgTuple[] args)
         {
-            return CreateRecursively(exception, args);
+            var err = CreateRecursively(exception, args);
+            ErrorGlobalHook.InvokeOnError(err);
+            return err;
 
             static Error CreateRecursively(Exception e, ErrorArgTuple[] args)
             {
