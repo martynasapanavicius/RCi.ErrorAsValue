@@ -4,20 +4,24 @@
     public static class ErrorTests
     {
         private const string _testStackTrace = "root stacktrace";
-        private static readonly ErrorThreadContext _testThreadContext = new(123, ApartmentState.MTA, "some thread name");
-        private static readonly Error _testErr0 = new
-        (
+        private static readonly ErrorThreadContext _testThreadContext = new(
+            123,
+            ApartmentState.MTA,
+            "some thread name"
+        );
+        private static readonly Error _testErr0 = new(
             "RootKind",
             "root message",
             _testThreadContext,
             _testStackTrace,
-            [
-                ("arg0", "value0"),
-                ("arg1", "value1"),
-            ]
+            [("arg0", "value0"), ("arg1", "value1")]
         );
         private static readonly Error _testErr1 = _testErr0.Wrap();
-        private static readonly Error _testErr2 = _testErr1.Wrap("WrappedKind", "wrapped message", ("arg2", "value2"));
+        private static readonly Error _testErr2 = _testErr1.Wrap(
+            "WrappedKind",
+            "wrapped message",
+            ("arg2", "value2")
+        );
         private static readonly Error _testErr3 = _testErr2.Wrap(("arg3", "value3"));
         private static readonly Error _testErr4 = _testErr3.Wrap("TopKind", "top message");
         private static readonly Error _testErr5 = _testErr4.Wrap("surface message");
@@ -78,11 +82,7 @@
         [Test]
         public static void Args_0()
         {
-            var expected = new ErrorArg[]
-            {
-                ("arg0", "value0"),
-                ("arg1", "value1"),
-            };
+            var expected = new ErrorArg[] { ("arg0", "value0"), ("arg1", "value1") };
             var actual = _testErrors[0].Args.ToArray();
             Assert.That(actual.SequenceEqual(expected), Is.True);
         }
@@ -90,11 +90,7 @@
         [Test]
         public static void Args_1()
         {
-            var expected = new ErrorArg[]
-            {
-                ("arg0", "value0"),
-                ("arg1", "value1"),
-            };
+            var expected = new ErrorArg[] { ("arg0", "value0"), ("arg1", "value1") };
             var actual = _testErrors[1].Args.ToArray();
             Assert.That(actual.SequenceEqual(expected), Is.True);
         }
@@ -190,7 +186,9 @@
                 // this doesn't compile without [NotNullWhen(true)] attribute
                 // compiler err: "Dereference of a possibly null reference."
                 // since we do have this attribute, it should compile without errors
-                var msg = err/*!*/.Message; // <--- no need for bang operator
+                var msg =
+                    err /*!*/
+                    .Message; // <--- no need for bang operator
 
                 Assert.That(msg, Is.Not.Null);
             }
@@ -199,9 +197,7 @@
 
             // this always returns non-null error (although return type is nullable reference type)
             static Error? GetError() =>
-                DateTime.UtcNow.Ticks == 0
-                    ? null
-                    : Error.NewInternal("some error");
+                DateTime.UtcNow.Ticks == 0 ? null : Error.NewInternal("some error");
         }
     }
 }

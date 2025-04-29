@@ -43,7 +43,10 @@
             Assert.That(actual.Message, Is.EqualTo("(ApplicationException) some exception"));
             Assert.That(actual.StackTrace, Is.EqualTo(exception.StackTrace));
             Assert.That(actual.ThreadContext, Is.EqualTo(expectedThreadContext));
-            Assert.That(actual.ToString(), Is.EqualTo("Exception: (ApplicationException) some exception"));
+            Assert.That(
+                actual.ToString(),
+                Is.EqualTo("Exception: (ApplicationException) some exception")
+            );
 
             var actualArgs = actual.Args.ToArray();
             var expectedArgs = new ErrorArg[]
@@ -75,7 +78,7 @@
                     return 1;
                 });
                 //task.GetAwaiter().GetResult();    // this forwards the exception
-                _ = task.Result;                    // this wraps it in AggregateException
+                _ = task.Result; // this wraps it in AggregateException
             }
             catch (Exception e)
             {
@@ -91,10 +94,20 @@
             var expectedThreadContext = ErrorThreadContext.GetCurrent();
 
             Assert.That(actual.Kind, Is.EqualTo(ErrorKind.Exception));
-            Assert.That(actual.Message, Is.EqualTo("(AggregateException) One or more errors occurred. (some exception): (ApplicationException) some exception"));
+            Assert.That(
+                actual.Message,
+                Is.EqualTo(
+                    "(AggregateException) One or more errors occurred. (some exception): (ApplicationException) some exception"
+                )
+            );
             Assert.That(actual.StackTrace, Is.EqualTo(exceptionInner.StackTrace));
             Assert.That(actual.ThreadContext, Is.EqualTo(expectedThreadContext));
-            Assert.That(actual.ToString(), Is.EqualTo("Exception: (AggregateException) One or more errors occurred. (some exception): (ApplicationException) some exception"));
+            Assert.That(
+                actual.ToString(),
+                Is.EqualTo(
+                    "Exception: (AggregateException) One or more errors occurred. (some exception): (ApplicationException) some exception"
+                )
+            );
 
             var actualArgs = actual.Args.ToArray();
             var expectedArgs = new ErrorArg[]

@@ -1,38 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	<WarningsAsErrors>Nullable</WarningsAsErrors>
-
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>Error as value package</Title>
-    <Authors>Martynas Apanavicius</Authors>
-    <Description>.NET Error as value package.</Description>
-    <PackageProjectUrl>https://github.com/martynasapanavicius/RCi.ErrorAsValue</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <RepositoryUrl>https://github.com/martynasapanavicius/RCi.ErrorAsValue</RepositoryUrl>
-    <PackageTags>error, errors, value, values, err, exception, exceptions</PackageTags>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>1.2.1</Version>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>RCi.ErrorAsValue.Tests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <WarningsAsErrors>Nullable</WarningsAsErrors>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Title>Error as value package</Title>
+        <Authors>Martynas Apanavicius</Authors>
+        <Description>.NET Error as value package.</Description>
+        <PackageProjectUrl>https://github.com/martynasapanavicius/RCi.ErrorAsValue</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/martynasapanavicius/RCi.ErrorAsValue</RepositoryUrl>
+        <PackageTags>error, errors, value, values, err, exception, exceptions</PackageTags>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <Version>1.2.1</Version>
+    </PropertyGroup>
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>RCi.ErrorAsValue.Tests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 </Project>

@@ -20,8 +20,7 @@ namespace RCi.ErrorAsValue
         /// <summary>
         /// Constructor for new error.
         /// </summary>
-        protected internal Error
-        (
+        protected internal Error(
             string kind,
             string message,
             ErrorThreadContext threadContext,
@@ -40,8 +39,7 @@ namespace RCi.ErrorAsValue
         /// <summary>
         /// Constructor for wrapping an existing error.
         /// </summary>
-        protected internal Error
-        (
+        protected internal Error(
             Error inner,
             string? kindOverride,
             string? messageOverride,
@@ -69,9 +67,7 @@ namespace RCi.ErrorAsValue
             get
             {
                 // we should always find kind at root level
-                return EnumerateErrorChain()
-                    .First(e => e._kind is not null)
-                    ._kind!;
+                return EnumerateErrorChain().First(e => e._kind is not null)._kind!;
             }
         }
 
@@ -102,15 +98,14 @@ namespace RCi.ErrorAsValue
             get
             {
                 // we should always find stack trace at root level
-                return EnumerateErrorChain()
-                    .Last(e => e._stackTrace is not null)
-                    ._stackTrace!;
+                return EnumerateErrorChain().Last(e => e._stackTrace is not null)._stackTrace!;
             }
         }
 
-        public virtual IEnumerable<ErrorArg> Args => EnumerateErrorChain()
-            .Where(err => !err._args.IsDefaultOrEmpty)
-            .SelectMany(err => err._args);
+        public virtual IEnumerable<ErrorArg> Args =>
+            EnumerateErrorChain()
+                .Where(err => !err._args.IsDefaultOrEmpty)
+                .SelectMany(err => err._args);
 
         public override string ToString() => $"{Kind}: {Message}";
 
@@ -119,7 +114,13 @@ namespace RCi.ErrorAsValue
         // factory (generic)
 
         public static Error New(string kind, string message, params ErrorArgTuple[] args) =>
-            new(kind, message, ErrorThreadContext.GetCurrent(), Environment.StackTrace, args.ToErrorArg().UnsafeAsImmutableArray());
+            new(
+                kind,
+                message,
+                ErrorThreadContext.GetCurrent(),
+                Environment.StackTrace,
+                args.ToErrorArg().UnsafeAsImmutableArray()
+            );
 
         // factory (explicit)
 
@@ -132,8 +133,7 @@ namespace RCi.ErrorAsValue
                 if (e.InnerException is null)
                 {
                     // this the most inner exception
-                    return new Error
-                    (
+                    return new Error(
                         ErrorKind.Exception,
                         $"({e.GetType().Name}) {e.Message}",
                         ErrorThreadContext.GetCurrent(),
@@ -144,8 +144,7 @@ namespace RCi.ErrorAsValue
 
                 // get inner error
                 var errInner = CreateRecursively(e.InnerException, []);
-                return new Error
-                (
+                return new Error(
                     errInner,
                     ErrorKind.Exception,
                     $"({e.GetType().Name}) {e.Message}",

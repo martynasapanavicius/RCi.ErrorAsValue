@@ -49,7 +49,9 @@
             var ve = Error.NewInternal("test").ToVe<int>();
             if (!ve.Ok(out _, out var err))
             {
-                var msg = err/* ! */.Message; // <--- no need for bang operator
+                var msg =
+                    err /* ! */
+                    .Message; // <--- no need for bang operator
 
                 Assert.That(msg, Is.Not.Null);
             }
@@ -61,7 +63,9 @@
             var ve = Error.NewInternal("test").ToVe<int>();
             if (ve.Failed(out _, out var err))
             {
-                var msg = err/* ! */.Message; // <--- no need for bang operator
+                var msg =
+                    err /* ! */
+                    .Message; // <--- no need for bang operator
 
                 Assert.That(msg, Is.Not.Null);
             }

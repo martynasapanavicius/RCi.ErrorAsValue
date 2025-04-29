@@ -2,8 +2,7 @@
 
 namespace RCi.ErrorAsValue
 {
-    public sealed record ErrorDump
-    (
+    public sealed record ErrorDump(
         string Kind,
         string Message,
         string ThreadContext,

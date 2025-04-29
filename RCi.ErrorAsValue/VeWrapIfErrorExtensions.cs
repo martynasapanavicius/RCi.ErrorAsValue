@@ -8,7 +8,11 @@ namespace RCi.ErrorAsValue
 
     public delegate (string Message, ErrorArgTuple[] args) GetMessageArgsDelegate();
 
-    public delegate (string Kind, string Message, ErrorArgTuple[] args) GetKindMessageArgsDelegate();
+    public delegate (
+        string Kind,
+        string Message,
+        ErrorArgTuple[] args
+    ) GetKindMessageArgsDelegate();
 
     public static class VeWrapIfErrorExtensions
     {
@@ -25,23 +29,20 @@ namespace RCi.ErrorAsValue
                 return ve;
             }
             var (message, args) = getMessageArgs();
-            return ve with
-            {
-                Error = ve.Error.Wrap(message, args)
-            };
+            return ve with { Error = ve.Error.Wrap(message, args) };
         }
 
-        public static Ve<T> WrapIfError<T>(this Ve<T> ve, GetKindMessageArgsDelegate getKindMessageArgs)
+        public static Ve<T> WrapIfError<T>(
+            this Ve<T> ve,
+            GetKindMessageArgsDelegate getKindMessageArgs
+        )
         {
             if (ve.Error is null)
             {
                 return ve;
             }
             var (kind, message, args) = getKindMessageArgs();
-            return ve with
-            {
-                Error = ve.Error.Wrap(kind, message, args)
-            };
+            return ve with { Error = ve.Error.Wrap(kind, message, args) };
         }
     }
 }

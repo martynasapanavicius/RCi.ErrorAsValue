@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 namespace RCi.ErrorAsValue
 {
-    public sealed class ErrorException(Error err) :
-        Exception
+    public sealed class ErrorException(Error err) : Exception
     {
         public override string Message => err.Message;
 

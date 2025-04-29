@@ -38,11 +38,7 @@ namespace RCi.ErrorAsValue.Tests
         [Test]
         public static void ToErrorArgArray()
         {
-            var expected = new ErrorArg[]
-            {
-                ("arg0", "value0"),
-                ("arg1", "value1"),
-            };
+            var expected = new ErrorArg[] { ("arg0", "value0"), ("arg1", "value1") };
             var actual = new ErrorArgTuple[]
             {
                 ("arg0", "value0"),
@@ -54,14 +50,15 @@ namespace RCi.ErrorAsValue.Tests
         [Test]
         public static void ToException()
         {
-            var actual = Error.NewNotImplemented
-            (
-                "message",
-                ("arg0", "value0"),
-                ("arg1", "value1"),
-                ("arg1", "value2"),
-                ("arg1", "value3")
-            ).ToException();
+            var actual = Error
+                .NewNotImplemented(
+                    "message",
+                    ("arg0", "value0"),
+                    ("arg1", "value1"),
+                    ("arg1", "value2"),
+                    ("arg1", "value3")
+                )
+                .ToException();
 
             Assert.That(actual, Is.Not.Null);
             Assert.That(actual.GetType(), Is.EqualTo(typeof(ErrorException)));
@@ -76,10 +73,10 @@ namespace RCi.ErrorAsValue.Tests
             }
             var expectedData = new Dictionary<object, object?>()
             {
-                {"arg0", "value0"},
-                {"arg1", "value1"},
-                {"arg1_1", "value2"},
-                {"arg1_2", "value3"},
+                { "arg0", "value0" },
+                { "arg1", "value1" },
+                { "arg1_1", "value2" },
+                { "arg1_2", "value3" },
             };
             Assert.That(actualData, Is.EquivalentTo(expectedData));
         }
